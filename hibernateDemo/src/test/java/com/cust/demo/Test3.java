@@ -2,7 +2,9 @@ package com.cust.demo;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -68,6 +70,10 @@ public class Test3 {
 	}*/
 	
 	
+	/**
+	 * 测试写入Blob类型文件
+	 * @throws Exception
+	 */
 	@Test
 	public void testSave() throws Exception {
 		Students stu = new Students();
@@ -83,6 +89,30 @@ public class Test3 {
 		stu.setPicture(image);
 		
 		session.save(stu);
+		inputStream.close();
 		
+		
+	}
+	
+	
+	/**
+	 * 测试读取Blob文件
+	 * @throws Exception
+	 */
+	@Test
+	public void testReadBlob() throws Exception{
+		Students stu = (Students) session.get(Students.class, 1);
+		
+		Blob blob = stu.getPicture();
+		InputStream inputStream = blob.getBinaryStream();
+		
+		OutputStream outputStream = new FileOutputStream(new File("f:/lx_bak.jpg"));
+		
+		byte[] buf = new byte[inputStream.available()];
+		inputStream.read(buf);
+		outputStream.write(buf);
+		
+		inputStream.close();
+		outputStream.close();
 	}
 }

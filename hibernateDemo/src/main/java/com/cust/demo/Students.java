@@ -16,6 +16,7 @@ public class Students {
 	private String sex;
 	private Date birthday;
 	private Blob picture;
+	private Address address;
 
 	public Students() {
 	}
@@ -79,11 +80,27 @@ public class Students {
 
 
 
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Students [sid=" + sid + ", sname=" + sname + ", sex=" + sex + ", birthday=" + birthday + ", picture="
-				+ picture + "]";
+				+ picture + ", address=" + address + "]";
 	}
+
+
+
+	
 
     	
 }

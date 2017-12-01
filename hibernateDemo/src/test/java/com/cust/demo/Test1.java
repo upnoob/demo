@@ -63,6 +63,8 @@ public class Test1 {
 				stu.setSex("男");
 				stu.setBirthday(new Date());
 				
+				stu.setAddress(new Address("223600", "130383873", "中国 长春"));
+				
 				session.save(stu);
 				session.flush();
 			}

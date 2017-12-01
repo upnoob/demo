@@ -6,7 +6,7 @@
     <class name="com.cust.demo.Students" table="STUDENTS">
         <id name="sid" type="int">
             <column name="SID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="sname" type="java.lang.String">
             <column name="SNAME" />
@@ -14,11 +14,23 @@
         <property name="sex" type="java.lang.String">
             <column name="SEX" />
         </property>
-        <property name="birthday" type="java.util.Date">
+        <property name="birthday" type="date">
             <column name="BIRTHDAY" />
         </property>
         <property name="picture" type="java.sql.Blob">
             <column name="PICTURE" />
         </property>
+        
+        <component name="address" class="com.cust.demo.Address">
+        	<property name="postCode" type="java.lang.String">
+        		<column name="POSTCODE"></column> 
+        	</property>
+        	<property name="phone" type="java.lang.String">
+        		<column name="PHONE"></column> 
+        	</property>
+        	<property name="address" type="java.lang.String">
+        		<column name="ADDRESS"></column> 
+        	</property>
+        </component>
     </class>
 </hibernate-mapping>
