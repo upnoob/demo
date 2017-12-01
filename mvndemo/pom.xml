@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cust</groupId>
+  <artifactId>app-all</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>demo1</module>
+    <module>demo2</module>
+    <module>demo3</module>
+  </modules>
+  
+  <!-- 自定义标签， 统一管理 ， 子模块自动引用-->
+  <properties>
+  	<junit.version>3.8.2</junit.version>
+  </properties>
+  
+  <!-- 
+  <dependencyManage></dependencyManage>作用类似于<properties>, 但是子模块不会自动引用
+   -->
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
