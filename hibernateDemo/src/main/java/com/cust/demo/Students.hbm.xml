@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2017-11-30 20:32:20 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2017-12-1 13:53:33 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.cust.demo.Students" table="STUDENTS">
         <id name="sid" type="int">
@@ -11,11 +11,14 @@
         <property name="sname" type="java.lang.String">
             <column name="SNAME" />
         </property>
-        <property name="gender" type="java.lang.String">
-            <column name="GENDER" />
+        <property name="sex" type="java.lang.String">
+            <column name="SEX" />
         </property>
         <property name="birthday" type="java.util.Date">
             <column name="BIRTHDAY" />
+        </property>
+        <property name="picture" type="java.sql.Blob">
+            <column name="PICTURE" />
         </property>
     </class>
 </hibernate-mapping>

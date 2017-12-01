@@ -1,23 +1,24 @@
 package com.cust.demo;
 
-
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.util.Date;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.jdbc.Work;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Test1 {
-	
+public class Test3 {
+
 	private SessionFactory sessionFactory;
 	private Session session;
 	private Transaction transaction;
@@ -33,23 +34,17 @@ public class Test1 {
 		//会话对象
 		session = sessionFactory.openSession();
 		//开启事务
-//		transaction = session.beginTransaction();
+		transaction = session.beginTransaction();
 	}
 
 	@After
 	public void after(){
-//		transaction.commit();
+		transaction.commit();
 		session.close();
 		sessionFactory.close();
 	}
 	
-/*	@Test
-	public void testSave(){
-		Students stu = new Students(1, "小明", "男", new Date());
-		session.save(stu);
-	}*/
-	
-	@Test
+	/*@Test
 	public void test(){
 		
 		session.doWork(new Work() {
@@ -63,11 +58,31 @@ public class Test1 {
 				stu.setSex("男");
 				stu.setBirthday(new Date());
 				
+				
 				session.save(stu);
 				session.flush();
 			}
 		});
 		
 	
+	}*/
+	
+	
+	@Test
+	public void testSave() throws Exception {
+		Students stu = new Students();
+		File file = new File("f:/lx.jpg");
+		
+		InputStream inputStream = new FileInputStream(file);
+		
+		Blob image = Hibernate.getLobCreator(session).createBlob(inputStream, inputStream.available());
+		
+		stu.setSname("tom");
+		stu.setSex("男");
+		stu.setBirthday(new Date());
+		stu.setPicture(image);
+		
+		session.save(stu);
+		
 	}
 }

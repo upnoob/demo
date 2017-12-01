@@ -1,5 +1,6 @@
 package com.cust.demo;
 
+import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -12,19 +13,25 @@ public class Students {
 
 	private int sid;
 	private String sname;
-	private String gender;
+	private String sex;
 	private Date birthday;
+	private Blob picture;
 
 	public Students() {
 	}
 
-	public Students(int sid, String sname, String gender, Date birthday) {
+	
+
+	public Students(int sid, String sname, String sex, Date birthday, Blob picture) {
 		super();
 		this.sid = sid;
 		this.sname = sname;
-		this.gender = gender;
+		this.sex = sex;
 		this.birthday = birthday;
+		this.picture = picture;
 	}
+
+
 
 	public int getSid() {
 		return sid;
@@ -42,12 +49,12 @@ public class Students {
 		this.sname = sname;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getSex() {
+		return sex;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public Date getBirthday() {
@@ -58,9 +65,25 @@ public class Students {
 		this.birthday = birthday;
 	}
 
-	@Override
-	public String toString() {
-		return "Studects [sid=" + sid + ", sname=" + sname + ", gender=" + gender + ", birthday=" + birthday + "]";
+
+
+	public Blob getPicture() {
+		return picture;
 	}
 
+
+
+	public void setPicture(Blob picture) {
+		this.picture = picture;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Students [sid=" + sid + ", sname=" + sname + ", sex=" + sex + ", birthday=" + birthday + ", picture="
+				+ picture + "]";
+	}
+
+    	
 }
