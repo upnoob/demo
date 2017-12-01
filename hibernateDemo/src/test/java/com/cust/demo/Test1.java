@@ -16,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestDemo {
+public class Test1 {
 	
 	private SessionFactory sessionFactory;
 	private Session session;
