@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.metamodel.domain.Hierarchical;
 
 import com.cust.util.HibernateUtil;
 
@@ -12,7 +13,8 @@ public class Test {
 	public static void main(String[] args) {
 //		add();
 //		queryStudentsByGrade();
-		update();
+//		update();
+		delete();
 	}
 
 	public static void add(){
@@ -30,6 +32,7 @@ public class Test {
 		session.save(stu2);
 		transaction.commit();
 		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
 	}
 	
 	/**
@@ -44,7 +47,8 @@ public class Test {
 		for(Student s: stus){
 			System.out.println(s.getSname() + "\t" + s.getGid() + "\t" + s.getSex());
 		}
-		
+		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
 	}
 	
 	
@@ -60,10 +64,20 @@ public class Test {
 		Transaction ta = session.beginTransaction();
 		Student stu = (Student) session.get(Student.class, 1);
 		g.getStudents().add(stu);
-		session.save(stu);
+		session.save(g);
 		ta.commit();
 		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
 		
-		
+	}
+	
+	public static void delete(){
+		Session session = HibernateUtil.getSession();
+		Transaction ta = session.beginTransaction();
+		Student stu = (Student) session.load(Student.class, 2);
+		session.delete(stu);
+		ta.commit();
+		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
 	}
 }
