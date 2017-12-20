@@ -10,10 +10,13 @@ import java.io.Serializable;
 
 /**
  * @author upnoob
- * @description 使用transient关键字不序列化某个变量，注意读取的时候，读取数据的顺序一定要和存放数据的顺序保持一致。
+ * @description 序列化
+ * 		记住：对象的序列化是基于字节的，不能使用Reader和Writer等基于字符的层次结构
+ * 		序列化对象是深复制，地址不同
+ * 		使用transient关键字不序列化某个变量，注意读取的时候，读取数据的顺序一定要和存放数据的顺序保持一致。
  * @conclusion 
  * 		1、一旦变量被transient 修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
- * 		2、transient关键字只能修饰实例变量（类变量），不能修饰成员变量（本地变量、局部变量），也不能修饰方法和类
+ * 		2、transient关键字只能修饰成员变量，不能修饰成员变量（本地变量、局部变量），也不能修饰方法和类
  * 		3、如果transient修饰的是用户自定义的类变量，则该类需要实现Serializable接口。
  * 		4、被transient 修饰的变量不能被序列化，一个static修饰的变量不管是否被transient修饰，均不能被序列化。
  * @version 1.0
@@ -48,12 +51,13 @@ public class TransientTest {
         //在反序列化之前改变username的值
         user.setUsername("长春理工大学");
         ObjectInputStream is = null;
+        User user2 = null;
 		try {
 			is = new ObjectInputStream(new FileInputStream("f:/user.txt"));
-			user = (User) is.readObject();
+			user2 = (User) is.readObject();
 			System.out.println("\nread after Serializable: ");
-	        System.out.println("username: " + user.getUsername());
-	        System.err.println("password: " + user.getPasswd());
+	        System.out.println("username: " + user2.getUsername());
+	        System.err.println("password: " + user2.getPasswd());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -67,6 +71,11 @@ public class TransientTest {
 				e.printStackTrace();
 			}
 		}
+		
+		//序列化对象，深复制，是新的对象，地址不同
+		System.out.println(user.equals(user2));
+		System.out.println(user == user2);
+		
         
 	}
 }
@@ -75,10 +84,12 @@ class User implements Serializable {
     private static final long serialVersionUID = 8294180014912103005L;  
     
     //static修饰的变量，在反序列化过程中, 反回的是JVM中对应的static变量的当前的值,而不是序列化时候的值
-    public static String username;
+//    public static String username;
+    public String username;
     
     //transient修饰的变量，不能被序列化
-    private transient String passwd;
+//    private transient String passwd;
+    private String passwd;
     
     public String getUsername() {
         return username;
