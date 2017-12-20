@@ -12,13 +12,18 @@ import java.io.Serializable;
  * @author upnoob
  * @description 序列化
  * 		记住：对象的序列化是基于字节的，不能使用Reader和Writer等基于字符的层次结构
+ * 		虚拟机是否允许反序列化，不仅取决于类路径和功能代码是否一致，一个非常重要的一点就是两个类的序列化ID是否一致
  * 		序列化对象是深复制，地址不同
  * 		使用transient关键字不序列化某个变量，注意读取的时候，读取数据的顺序一定要和存放数据的顺序保持一致。
+ *
  * @conclusion 
  * 		1、一旦变量被transient 修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
  * 		2、transient关键字只能修饰成员变量，不能修饰成员变量（本地变量、局部变量），也不能修饰方法和类
  * 		3、如果transient修饰的是用户自定义的类变量，则该类需要实现Serializable接口。
  * 		4、被transient 修饰的变量不能被序列化，一个static修饰的变量不管是否被transient修饰，均不能被序列化。
+ * 		5、当一个父类实现序列化，子类自动实现序列化，不需要显式实现Serializable接口。
+		6、一个子类实现了 Serializable 接口，它的父类都没有实现 Serializable 接口，要想将父类对象也序列化，就需要让父类也实现Serializable 接口。
+			第二种情况中：如果父类不实现 Serializable接口的话，就需要有默认的无参的构造函数。这是因为一个 Java 对象的构造必须先有父对象，才有子对象，反序列化也不例外。在反序列化时，为了构造父对象，只能调用父类的无参构造函数作为默认的父对象。因此当我们取父对象的变量值时，它的值是调用父类无参构造函数后的值。在这种情况下，在序列化时根据需要在父类无参构造函数中对变量进行初始化，否则的话，父类变量值都是默认声明的值，如 int 型的默认是 0，string 型的默认是 null。
  * @version 1.0
  * @date 2017-12-20
  */
@@ -49,7 +54,7 @@ public class TransientTest {
 		}
         
         //在反序列化之前改变username的值
-        user.setUsername("长春理工大学");
+   //     user.setUsername("长春理工大学");
         ObjectInputStream is = null;
         User user2 = null;
 		try {
