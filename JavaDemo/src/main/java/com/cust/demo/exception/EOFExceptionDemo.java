@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
+ * EOFException，文件到末尾异常end of file
+ *
  * 对象序列化两种方式
  * 	     1.实现Serializable接口,序列化将自动进行。
  * 	     2.实现Externalizable接口,该方式不能自动序列化，需要在writeExternal方法中手动指定需要序列化的变量。

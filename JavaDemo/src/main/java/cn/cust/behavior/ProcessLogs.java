@@ -8,7 +8,8 @@ import java.io.*;
 public class ProcessLogs {
     public static void main(String[] args) throws Exception{
 //        preProcess("d:/jyxm/logs");
-        combineAllBehavior("d:/jyxm/logs2/");
+//        combineAllBehavior("d:/jyxm/logs2/");
+        removeLogsSelfInfo("d:/jyxm/all_behavior.txt");
     }
 
     /**
@@ -58,7 +59,7 @@ public class ProcessLogs {
             allbehavior.createNewFile();
         }
 
-        BufferedWriter bw  = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(allbehavior)));
+        BufferedWriter bw  = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(allbehavior), "UTF-8"));
         for (File file: files){
             BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             while ((line = bf.readLine()) != null) {
@@ -69,5 +70,29 @@ public class ProcessLogs {
             bf.close();
         }
         bw.close();
+    }
+
+    /**
+     * 将log日志自带信息中除了时间节点的其他无用信息剔除，格式化数据格式
+     * @param path all_behavior
+     */
+    public static void removeLogsSelfInfo(String path) throws Exception{
+        File file = new File(path);
+        File file2 = new File("d:/jyxm/all_behavior_2.txt");
+        if (!file2.exists()) {
+            file2.createNewFile();
+        }
+        BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+        BufferedWriter bw  = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file2), "UTF-8"));
+        String line = null;
+        while ((line = bf.readLine()) != null) {
+            String[] strs = line.split("  : ");
+            String newline = strs[0].substring(0, 23).concat("{-*-}").concat(strs[1]);
+            bw.write(newline);
+            bw.newLine();
+            bw.flush();
+        }
+        bw.close();
+        bf.close();
     }
 }
