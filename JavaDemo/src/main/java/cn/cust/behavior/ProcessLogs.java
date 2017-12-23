@@ -1,6 +1,10 @@
 package cn.cust.behavior;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import java.io.*;
+import java.sql.Connection;
+
 /**
  * 处理日志。
  * Created by upnoob on 2017/12/22.
@@ -9,7 +13,9 @@ public class ProcessLogs {
     public static void main(String[] args) throws Exception{
 //        preProcess("d:/jyxm/logs");
 //        combineAllBehavior("d:/jyxm/logs2/");
-        removeLogsSelfInfo("d:/jyxm/all_behavior.txt");
+//        removeLogsSelfInfo("d:/jyxm/all_behavior.txt");
+//        judgeBehavior("d:/jyxm/all_behavior_2.txt");
+        saveInMysql("d:/jyxm/all_behavior_2.txt");
     }
 
     /**
@@ -93,6 +99,46 @@ public class ProcessLogs {
             bw.flush();
         }
         bw.close();
+        bf.close();
+    }
+
+
+    /**
+     * 将数据文件保存一份在数据库里
+     * @param path
+     */
+    public static void saveInMysql(String path) throws Exception{
+        Connection conn = JDBCUtils.connMySQL();
+        PreparedStatement ps = null;
+
+        BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path)), "UTF-8"));
+        String line = null;
+        String sql = "insert into all_behaviors(id, content) values(?, ?)";
+        while ((line = bf.readLine()) != null) {
+            ps = (PreparedStatement) conn.prepareStatement(sql);
+            ps.setString(1, null);
+            ps.setString(2, line);
+            ps.executeUpdate();
+        }
+        ps.close();
+        conn.close();
+        bf.close();
+    }
+
+
+    /**
+     * 判断每行行为是否合法
+     * 该方法只是用来检测每一行的数据格式是否一致，有没有漏掉的某个拦截值
+     */
+    public static void judgeBehavior(String path) throws Exception{
+        BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(new File(path)), "UTF-8"));
+        String line = null;
+        while ((line = bf.readLine()) != null) {
+            String[] strs = line.split("\\{\\-\\*\\-\\}");
+            if (strs.length != 23){
+                System.out.println(strs.length);
+            }
+        }
         bf.close();
     }
 }

@@ -1,8 +1,7 @@
 package cn.cust.behavior;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 /**
  * Created by upnoob on 2017/12/22.
