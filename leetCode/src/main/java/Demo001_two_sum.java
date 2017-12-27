@@ -14,10 +14,10 @@ import java.util.Map;
  *
  * Created by upnoob on 2017/12/20.
  */
-public class Demo001 {
+public class Demo001_two_sum {
 
     public static void main(String[] args) {
-        int[] result = towSum2(new int[]{2, 4, 8, 34}, 42);
+        int[] result = towSum2(new int[]{2, 4, 8, 34}, 6);
         for (int t : result) {
             System.out.println(t);
         }
@@ -37,24 +37,20 @@ public class Demo001 {
                 }
             }
         }
-        throw new IllegalArgumentException("now solution");
+        throw new IllegalArgumentException("no two sum solution");
     }
 
     /**
      * solution two
      */
     public static int[] towSum2(int[] nums, int target) {
-        int[] res = new int[2];
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
-                res[0] = target - nums[i];
-                res[1] = nums[i];
-                return res;
+                return new int[]{target - nums[i], nums[i]};
             }
             map.put(nums[i], i);
         }
-        return res;
+        throw new IllegalArgumentException("no tow sum solution");
     }
 }
