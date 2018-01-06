@@ -3,3 +3,10 @@
 /RemoteSystemsTempFiles/
 /.idea/
 /**/.idea/
+/**/.iml
+/**/.classpath
+/**/.project
+/**/.settings/
+/**/.gradle/
+/**/target/
+
