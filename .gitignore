@@ -1,12 +1,17 @@
+/.git/
 /.metadata/
 /.recommenders/
 /RemoteSystemsTempFiles/
-/.idea/
 /**/.idea/
-/**/.iml
-/**/.classpath
-/**/.project
 /**/.settings/
-/**/.gradle/
+/**/.svn/
 /**/target/
+/**/.project
+/**/.classpath
+/**/.iml
+/**/.gradle/
+
+
+
+
 
