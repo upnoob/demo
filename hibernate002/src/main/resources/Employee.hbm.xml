@@ -4,13 +4,17 @@
 <!-- Generated 2017-12-1 13:53:33 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.cust.demo.Employee" table="employee">
-        <id name="empid" type="int">
-            <column name="empid" />
-            <generator class="increment" />
+        <id name="empid" column="empid" type="java.lang.Integer">
+            <generator class="assigned" />
         </id>
         <property name="empname" type="java.lang.String">
             <column name="empname" length="20" not-null="true"/>
         </property>
+        
+        <set name="projects" table="proemp" cascade="save-update">
+            <key column="rempid"></key>
+            <many-to-many class="com.cust.demo.Project" column="rproid"></many-to-many>
+        </set>
 
     </class>
 </hibernate-mapping>

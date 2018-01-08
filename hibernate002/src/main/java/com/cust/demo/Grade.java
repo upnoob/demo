@@ -10,7 +10,7 @@ public class Grade implements Serializable{
 	private String gname;
 	private String gdesc;
 	
-	private Set<Student> students = new HashSet<>();
+	private Set<Student> students = new HashSet<Student>();
 	
 
 	public Grade() {

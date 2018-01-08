@@ -14,7 +14,7 @@ public class Test {
 //		add();
 //		queryStudentsByGrade();
 //		update();
-		delete();
+//		delete();
 	}
 
 	public static void add(){

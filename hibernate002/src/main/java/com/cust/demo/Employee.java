@@ -15,6 +15,20 @@ public class Employee {
         return empid;
     }
 
+    public Employee() {
+    }
+
+    public Employee(int empid, String empname) {
+        this.empid = empid;
+        this.empname = empname;
+    }
+
+    public Employee(int empid, String empname, Set<Project> projects) {
+        this.empid = empid;
+        this.empname = empname;
+        this.projects = projects;
+    }
+
     public void setEmpid(int empid) {
         this.empid = empid;
     }
@@ -35,12 +49,5 @@ public class Employee {
         this.projects = projects;
     }
 
-    public Employee() {
-    }
 
-    public Employee(int empid, String empname, Set<Project> projects) {
-        this.empid = empid;
-        this.empname = empname;
-        this.projects = projects;
-    }
 }
