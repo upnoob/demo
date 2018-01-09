@@ -15,8 +15,8 @@
             <column name="gdesc" />
         </property>
         
-        <!-- 配置单向一对多关系 -->
-        <set name="students" table="student">
+        <!-- 配置单向一对多关系 -->  <!-- inverse属性表示是否将关系维护的全力交给对方 cascade表示级联操作-->
+        <set name="students" table="student" inverse="true" cascade="all">
         	<!-- 指定关联的外键列 -->
         	<key column="gid"></key>
         	<one-to-many class="com.cust.demo.Student"></one-to-many>

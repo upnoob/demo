@@ -12,7 +12,7 @@
         </property>
 
         <!--配置多对多关联关系-->
-        <set name="employees" table="proemp" cascade="save-update">
+        <set name="employees" table="proemp" cascade="all">
             <key column="rproid"></key>
             <many-to-many class="com.cust.demo.Employee" column="rempid"></many-to-many>
         </set>

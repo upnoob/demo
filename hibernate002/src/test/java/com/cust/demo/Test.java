@@ -1,12 +1,12 @@
 package com.cust.demo;
 
-import java.util.Set;
-
+import com.cust.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.metamodel.domain.Hierarchical;
 
-import com.cust.util.HibernateUtil;
+import java.util.List;
+import java.util.Set;
 
 public class Test {
 	
@@ -15,8 +15,53 @@ public class Test {
 //		queryStudentsByGrade();
 //		update();
 //		delete();
+//		add2(); //测试多对一
+		testHQL();
 	}
 
+
+	public static void testHQL(){
+
+		Session session = HibernateUtil.getSession();
+		Transaction transaction = session.beginTransaction();
+		String hql = " from Student";
+		Query query = session.createQuery(hql);
+		List<Student> lists = query.list();
+		for (Student stu: lists){
+			System.out.println(stu.getSname());
+		}
+		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
+
+	}
+
+
+	/**
+	 * 测试多对一的关系
+	 */
+	public static void add2(){
+		Grade grade = new Grade("java 1 班", "java 开发学习班 cust 哈哈哈哈");
+		Student stu1 = new Student("tom", "男");
+		Student stu2 = new Student("lisa", "女");
+
+		grade.getStudents().add(stu1);
+		grade.getStudents().add(stu2);
+		stu1.setGrade(grade);
+		stu2.setGrade(grade);
+
+		Session session = HibernateUtil.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(grade);
+//		session.save(stu1);
+//		session.save(stu2);
+		transaction.commit();
+		HibernateUtil.closeSession();
+		HibernateUtil.closeSessionFactory();
+	}
+
+	/**
+	 * 测试一对多
+	 */
 	public static void add(){
 		Grade grade = new Grade("java 1 班", "java 开发学习班");
 		Student stu1 = new Student("tom", "男");

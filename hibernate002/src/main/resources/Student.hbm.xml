@@ -14,8 +14,7 @@
         <property name="sex" type="java.lang.String">
             <column name="sex" />
         </property>
-        <!-- <property name="gid" type="int">
-            <column name="gid" />
-        </property> -->
+
+        <many-to-one name="grade" class="com.cust.demo.Grade" column="gid"></many-to-one>
     </class>
 </hibernate-mapping>
